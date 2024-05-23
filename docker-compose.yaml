@@ -1,0 +1,26 @@
+version: '3.7'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: app
+    networks:
+      - leonid_network
+
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - "6379:6379"
+    environment:
+      REDIS_PORT: 6379
+      REDIS_PASSWORD: "password"
+      REDIS_USERNAME: "leonid"
+    networks:
+      - leonid_network
+
+networks:
+  leonid_network:
+    driver: bridge
